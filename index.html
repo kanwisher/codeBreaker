@@ -1,84 +1,113 @@
 
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Code Breaker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-         color: white;
-         background: linear-gradient(to right, rgb(10, 10, 10), rgb(55, 55, 55));
-         font-family: arial;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-        }
-
-        #play-area {
-            display: none;
-            text-align: center;
-        }
-
-        #timer {
-            font-size: 80px;
-        }
-
-        #button-vault {
-            width: 200px;
-            height: 50px;
-            background-color: gray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            border-radius: 2%;
-            font-size: 20px;
-            transition: height 200ms, width 200ms, font-size 200ms;
-        }
-
-        #button-vault:hover {
-            background-color: slategray;
-            height: 52px;
-            width: 205px;
-            font-size: 21px;
-        }
-
-        input {
-            width: 100px;
-            height: 200px;
-            margin: 20px;
-        }
-
-    </style>
-
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Code Breaker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+             color: white;
+             background: linear-gradient(to right, rgb(10, 10, 10), rgb(55, 55, 55));
+             font-family: arial;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+            }
     
-</head>
-<body>
-    <div id="button-vault">Enter Vault</div>
-    <section id="play-area">
-        <div><span id="timer">0</span>ms</div>
-        <h1>Please enter your numeric password to gain access</h1>
-        <input></input><input></input><input></input><input></input><input></input><input></input>
-    </section>
-<script>
-    const enterButton = document.getElementById("button-vault");
-    const playArea = document.getElementById("play-area");
-    const timer = document.getElementById("timer");
-    let ms = 0;
+            #play-area {
+                display: none;
+                text-align: center;
+            }
+    
+            #timer {
+                font-size: 80px;
+            }
+    
+            #button-vault {
+                width: 200px;
+                height: 50px;
+                background-color: gray;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                border-radius: 2%;
+                font-size: 20px;
+                transition: height 200ms, width 200ms, font-size 200ms;
+            }
+    
+            #button-vault:hover {
+                background-color: slategray;
+                height: 52px;
+                width: 205px;
+                font-size: 21px;
+            }
 
-    enterButton.addEventListener("click", function(){
-        this.style.display = 'none';
-        playArea.style.display = 'block';
-        const interval = setInterval(function(){
-            ms += 10;
-            timer.innerHTML = ms;
-        }, 10);
-    });
+            #unlock-button {
+                height: 52px;
+                width: 205px;
+                font-size: 21px;
+                text-align: center;
+            }
+    
+            input {
+                width: 100px;
+                height: 200px;
+                margin: 20px;
+                font-size: 105px;
+                text-align: center;
+            }
+    
+        </style>
+    
+        
+    </head>
+    <body>
+        <div id="button-vault">Enter Vault</div>
+        <section id="play-area">
+            <div><span id="timer">0</span>ms</div>
+            <h1>Please enter your numeric password to gain access</h1>
+            <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <input id="last" type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+        </section>
+    <script>
+        const enterButton = document.getElementById("button-vault");
+        const playArea = document.getElementById("play-area");
+        const timer = document.getElementById("timer");
+        const inputs = Array.from(document.getElementsByTagName("input"));
+        inputs.forEach(input => {
+            input.addEventListener("input", e => {
+                if(e.target.value && e.target.getAttribute("id") != "last"){
+                    e.target.nextElementSibling.focus();
+                } else{
+                    const button = document.createElement("div");
+                    button.setAttribute("id", "unlock-button");
+                    button.textContent = "Unlock!";
+                    playArea.appendChild(button);
 
-    // setInterval(function(){
-    //     window.location.reload();
-    //     }, 1000);
-</script>
-</body>
-</html>
+                }
+            })
+        })
+
+        let ms = 0;
+    
+        enterButton.addEventListener("click", function(){
+            this.style.display = 'none';
+            playArea.style.display = 'block';
+            const interval = setInterval(function(){
+                ms += 10;
+                timer.innerHTML = ms;
+            }, 10);
+        });
+    
+        // setInterval(function(){
+        //     window.location.reload();
+        //     }, 1000);
+    </script>
+    </body>
+    </html>
