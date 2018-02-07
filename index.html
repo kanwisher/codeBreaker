@@ -24,7 +24,7 @@
                 font-size: 80px;
             }
     
-            #button-vault {
+            #button-vault, #button-unlock {
                 width: 200px;
                 height: 50px;
                 background-color: gray;
@@ -44,11 +44,8 @@
                 font-size: 21px;
             }
 
-            #unlock-button {
-                height: 52px;
-                width: 205px;
-                font-size: 21px;
-                text-align: center;
+            .hidden {
+                visibility: hidden;
             }
     
             input {
@@ -74,9 +71,11 @@
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input id="last" type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <div id="button-unlock" class="hidden">Unlock!</div>
         </section>
     <script>
         const enterButton = document.getElementById("button-vault");
+        const unlockButton = document.getElementById("button-unlock");
         const playArea = document.getElementById("play-area");
         const timer = document.getElementById("timer");
         const inputs = Array.from(document.getElementsByTagName("input"));
@@ -85,10 +84,7 @@
                 if(e.target.value && e.target.getAttribute("id") != "last"){
                     e.target.nextElementSibling.focus();
                 } else{
-                    const button = document.createElement("div");
-                    button.setAttribute("id", "unlock-button");
-                    button.textContent = "Unlock!";
-                    playArea.appendChild(button);
+                    unlockButton.classList.remove("hidden");
 
                 }
             })
