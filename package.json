@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kanwisher/codeBreaker/issues"
   },
-  "homepage": "https://github.com/kanwisher/codeBreaker#readme"
+  "homepage": "https://github.com/kanwisher/codeBreaker#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }

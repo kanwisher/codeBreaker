@@ -100,6 +100,20 @@
                 timer.innerHTML = ms;
             }, 10);
         });
+        unlockButton.addEventListener("click", function(){
+            var userGuess = "123456";
+            fetch(`/attempt?code=${userGuess}`, {
+            method: "get"
+            }).then(function(response){
+                return response.text()
+            }).then(function(response) {
+                if(response === "correct"){
+                    alert("you win!");
+                }
+            }).catch(function(err) {
+                console.log(err, "there was a problem");
+            });
+        });
     
         // setInterval(function(){
         //     window.location.reload();
