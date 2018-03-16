@@ -10,9 +10,12 @@
              color: white;
              background: linear-gradient(to right, rgb(10, 10, 10), rgb(55, 55, 55));
              font-family: arial;
-             display: flex;
-             justify-content: center;
              align-items: center;
+            }
+            
+            .flex-center {
+                display: flex;
+                justify-content: center;
             }
     
             #play-area {
@@ -28,8 +31,6 @@
                 width: 200px;
                 height: 50px;
                 background-color: gray;
-                display: flex;
-                justify-content: center;
                 align-items: center;
                 cursor: pointer;
                 border-radius: 2%;
@@ -60,8 +61,8 @@
     
         
     </head>
-    <body>
-        <div id="button-vault">Enter Vault</div>
+    <body class= "flex-center">
+        <div id="button-vault" class= "flex-center">Enter Vault</div>
         <section id="play-area">
             <div><span id="timer">0</span>ms</div>
             <h1>Please enter your numeric password to gain access</h1>
@@ -71,7 +72,9 @@
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input id="last" type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
-            <div id="button-unlock" class="hidden">Unlock!</div>
+            <div id="unlock-container" class="flex-center">            
+                <div id="button-unlock"  class="hidden flex-center">Unlock!</div>
+            </div>
         </section>
     <script>
         const enterButton = document.getElementById("button-vault");
@@ -95,25 +98,36 @@
         enterButton.addEventListener("click", function(){
             this.style.display = 'none';
             playArea.style.display = 'block';
-            const interval = setInterval(function(){
-                ms += 10;
-                timer.innerHTML = ms;
-            }, 10);
+            // const interval = setInterval(function(){
+            //     ms += 10;
+            //     timer.innerHTML = ms;
+            // }, 10);
         });
         unlockButton.addEventListener("click", function(){
-            var userGuess = "123456";
-            fetch(`/attempt?code=${userGuess}`, {
+            console.log("hey");
+            var userGuess = grabValues();
+            fetch(`/api/attempt?code=${userGuess}`, {
             method: "get"
             }).then(function(response){
                 return response.text()
             }).then(function(response) {
                 if(response === "correct"){
                     alert("you win!");
+                } else {
+                    alert("wrong");
                 }
             }).catch(function(err) {
                 console.log(err, "there was a problem");
             });
         });
+
+        function grabValues() {
+            var userGuess = "";
+            inputs.forEach(input => {
+                userGuess += input.value;
+            });
+            return userGuess;
+        }
     
         // setInterval(function(){
         //     window.location.reload();

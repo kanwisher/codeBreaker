@@ -1,20 +1,23 @@
 const express = require('express');
 const app = express();
-const code = "123456" //generateRandom();
+const code = generateRandom();
+const PORT = 3000;
 
 function generateRandom() {
   var codeArray = [];
   for(var i = 0; i < 6; i++){
     codeArray.push(Math.floor(Math.random() * 10));  
   }
-  return codeArray.join();
+  return codeArray.join(); //string
 }
- 
+ // html routes
 app.get('/', function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/attempt', function (req, res) {
+// api routes
+app.get('/api/attempt', function (req, res) {
+  console.log(req);
     var userGuess = req.query.code;
     if(userGuess === code){
       res.send("correct");
@@ -23,4 +26,6 @@ app.get('/attempt', function (req, res) {
     }
 });
  
-app.listen(3000);
+app.listen(PORT, function(){
+  console.log(`App is running at http://localhost:${PORT}`)
+});
