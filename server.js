@@ -8,17 +8,19 @@ function generateRandom() {
   for(var i = 0; i < 6; i++){
     codeArray.push(Math.floor(Math.random() * 10));  
   }
-  return codeArray.join(); //string
+  console.log(codeArray);
+  return codeArray.join(""); //string
 }
  // html routes
 app.get('/', function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-// api routes
+// api routes`
 app.get('/api/attempt', function (req, res) {
-  console.log(req);
     var userGuess = req.query.code;
+    console.log(userGuess);
+    console.log(code);
     if(userGuess === code){
       res.send("correct");
     } else {

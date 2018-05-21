@@ -65,8 +65,8 @@
         <div id="button-vault" class= "flex-center">Enter Vault</div>
         <section id="play-area">
             <div><span id="timer">0</span>ms</div>
-            <h1>Please enter your numeric password to gain access</h1>
-            <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <h1>Please enter the numeric password to gain access</h1>
+            <input type="text" maxLength= "1" autofocus="autofocus" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
@@ -88,20 +88,30 @@
                     e.target.nextElementSibling.focus();
                 } else{
                     unlockButton.classList.remove("hidden");
-
                 }
             })
         })
+        let notEntered = true;
+        document.addEventListener("keyup", e =>{
+            if (e.which == 13){
+                if(notEntered){
+                    enterButton.click();
+                    notEntered = false;
+                } else {
+                    unlockButton.click();
+                }
+            }
+        });
 
         let ms = 0;
     
         enterButton.addEventListener("click", function(){
             this.style.display = 'none';
             playArea.style.display = 'block';
-            // const interval = setInterval(function(){
-            //     ms += 10;
-            //     timer.innerHTML = ms;
-            // }, 10);
+            const interval = setInterval(function(){
+                ms += 10;
+                timer.innerHTML = ms;
+            }, 10);
         });
         unlockButton.addEventListener("click", function(){
             console.log("hey");
