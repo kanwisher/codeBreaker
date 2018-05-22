@@ -96,9 +96,12 @@
             if (e.which == 13){
                 if(notEntered){
                     enterButton.click();
-                    notEntered = false;
+                    
                 } else {
                     unlockButton.click();
+                    inputs.forEach(input => {
+                        input.value = "";
+                    })
                 }
             }
         });
@@ -106,6 +109,7 @@
         let ms = 0;
     
         enterButton.addEventListener("click", function(){
+            notEntered = false;
             this.style.display = 'none';
             playArea.style.display = 'block';
             const interval = setInterval(function(){
@@ -136,6 +140,7 @@
             inputs.forEach(input => {
                 userGuess += input.value;
             });
+            inputs[0].select();
             return userGuess;
         }
     
