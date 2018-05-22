@@ -56,6 +56,13 @@
                 font-size: 105px;
                 text-align: center;
             }
+
+            .wrong {
+                background: linear-gradient(to right, red, rgb(165, 9, 9));
+                position: relative;
+                left: -300px;
+                transition: all 0.5s ease;
+            }
     
         </style>
     
@@ -126,9 +133,9 @@
                 return response.text()
             }).then(function(response) {
                 if(response === "correct"){
-                    alert("you win!");
+                    //win right
                 } else {
-                    alert("wrong");
+                    //css logic here
                 }
             }).catch(function(err) {
                 console.log(err, "there was a problem");
