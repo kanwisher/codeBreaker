@@ -8,9 +8,14 @@
         <style>
             body {
              color: white;
+             background-color: black;
              background: linear-gradient(to right, rgb(10, 10, 10), rgb(55, 55, 55));
              font-family: arial;
              align-items: center;
+             position: relative;
+             left: 0;
+             transition: all 200ms ease-in-out;
+             transition-property: background-color, left;
             }
             
             .flex-center {
@@ -58,10 +63,16 @@
             }
 
             .wrong {
-                background: linear-gradient(to right, red, rgb(165, 9, 9));
-                position: relative;
-                left: -300px;
-                transition: all 0.5s ease;
+                background: black;
+                animation-name: wrongAnimation;
+                animation-duration: 250ms;
+                animation-iteration-count: 1;
+            }
+
+            @keyframes wrongAnimation { 
+                0%{background-color:black; left: 0; }
+                50%{background-color: rgb(250, 39, 39); left: -50; }
+                100%{background-color: black; left: 0; }
             }
     
         </style>
@@ -80,7 +91,7 @@
             <input type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <input id="last" type="text" maxLength= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
             <div id="unlock-container" class="flex-center">            
-                <div id="button-unlock"  class="hidden flex-center">Unlock!</div>
+                <div id="button-unlock"  class="flex-center">Unlock!</div>
             </div>
         </section>
     <script>
@@ -135,7 +146,11 @@
                 if(response === "correct"){
                     //win right
                 } else {
-                    //css logic here
+                    document.body.classList.add("wrong")
+                    setTimeout(()=> {
+                        document.body.classList.remove("wrong");
+                    }, 200);
+                    
                 }
             }).catch(function(err) {
                 console.log(err, "there was a problem");
